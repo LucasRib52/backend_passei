@@ -194,6 +194,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.1.67:8080",  # IP local
     "http://192.168.1.67:5173",
     "http://192.168.1.67:3000",
+    "https://frontend-passei.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
