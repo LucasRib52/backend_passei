@@ -6,6 +6,8 @@ from django.utils.text import slugify
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    # Torna o slug opcional para permitir geração automática
+    slug = serializers.CharField(required=False, allow_blank=True)
     class Meta:
         model = Category
         fields = '__all__'
