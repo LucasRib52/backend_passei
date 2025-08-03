@@ -2,12 +2,25 @@ from rest_framework import serializers
 from .models import Course, Module, Lesson, Category
 from professors.serializers import ProfessorSerializer
 from professors.models import Professor
+from django.utils.text import slugify
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
+    
+    def create(self, validated_data):
+        # Gerar slug automaticamente se não fornecido
+        if 'slug' not in validated_data or not validated_data['slug']:
+            validated_data['slug'] = slugify(validated_data['name'])
+        return super().create(validated_data)
+    
+    def update(self, instance, validated_data):
+        # Gerar slug automaticamente se nome foi alterado
+        if 'name' in validated_data and validated_data['name'] != instance.name:
+            validated_data['slug'] = slugify(validated_data['name'])
+        return super().update(instance, validated_data)
 
 
 class CategoryPublicSerializer(serializers.ModelSerializer):
