@@ -3,14 +3,15 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.contrib.auth.models import User
-from .serializers import UserSerializer
+from .serializers import UserSerializer, EmailTokenObtainPairSerializer
 
 
 class AdminAuthView(TokenObtainPairView):
     """
-    Login para o painel admin
+    Login para o painel admin - aceita username ou email
     """
     permission_classes = [AllowAny]
+    serializer_class = EmailTokenObtainPairSerializer
 
 
 class AdminAuthRefreshView(TokenRefreshView):
